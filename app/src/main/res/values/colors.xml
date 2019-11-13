@@ -5,6 +5,15 @@
     <color name="colorAccent">#c2bdbf</color>
     <color name="colorBlack">#000000</color>
 
-    <color name="colorGreen">#4cab03</color>
+    <color name="colorDarkRed">#AB0303</color>
+    <color name="colorlightRed">#F01A1A</color>
     <color name="colorWindow">?android:attr/windowBackground</color>
+    <color name="colorGreen">#4cab03</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="colorCardView">#f7f7f7</color>
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_500">#a4a4a4</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_800">#212121</color>
 </resources>

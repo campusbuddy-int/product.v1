@@ -8,6 +8,8 @@ import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.ng.campusbuddy.Auth.LoginActivity;
+import com.ng.campusbuddy.Auth.RegisterActivity;
 
 public class StartActivity extends AppCompatActivity {
 

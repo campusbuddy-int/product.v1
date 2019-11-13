@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ng.campusbuddy.Fragments.ProfileFragment;
 import com.ng.campusbuddy.MainActivity;
+import com.ng.campusbuddy.Message.ChatActivity;
 import com.ng.campusbuddy.Model.User;
 import com.ng.campusbuddy.R;
 
@@ -60,6 +62,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ImageViewHolde
 
         final User user = mUsers.get(position);
 
+        holder.btn_message.setVisibility(View.VISIBLE);
+
         holder.btn_follow.setVisibility(View.VISIBLE);
         isFollowing(user.getId(), holder.btn_follow);
 
@@ -70,6 +74,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ImageViewHolde
         if (user.getId().equals(firebaseUser.getUid())){
             holder.btn_follow.setVisibility(View.GONE);
         }
+
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +114,16 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ImageViewHolde
             }
 
         });
+
+        holder.btn_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent message = new Intent(mContext, ChatActivity.class);
+                message.putExtra("userid", user.getId());
+                mContext.startActivity(message);
+            }
+        });
     }
 
     private void addNotification(String userid){
@@ -133,6 +149,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ImageViewHolde
         public TextView fullname;
         public CircleImageView image_profile;
         public Button btn_follow;
+        public Button btn_message;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
@@ -141,6 +158,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ImageViewHolde
             fullname = itemView.findViewById(R.id.fullname);
             image_profile = itemView.findViewById(R.id.image_profile);
             btn_follow = itemView.findViewById(R.id.btn_follow);
+            btn_message = itemView.findViewById(R.id.btn_message);
         }
     }
 

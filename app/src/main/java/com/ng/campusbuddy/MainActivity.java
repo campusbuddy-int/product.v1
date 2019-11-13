@@ -10,15 +10,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.ng.campusbuddy.Fragments.HomeFragment;
 import com.ng.campusbuddy.Fragments.NotificationFragment;
 import com.ng.campusbuddy.Fragments.ProfileFragment;
 import com.ng.campusbuddy.Fragments.SearchFragment;
 
+import java.util.HashMap;
+
 public class MainActivity extends AppCompatActivity {
 
     BottomNavigationView bottom_navigation;
     Fragment selectedfragment = null;
+
+    FirebaseUser firebaseUser;
+    DatabaseReference UserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                     new HomeFragment()).commit();
         }
+
 
     }
 
@@ -80,4 +89,22 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    private void profileUpdate(String bio, String gender, String birthday, String telephone, String faculty, String department,
+                               String institution, String relationship_status){
+        UserRef = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("gender", gender);
+        hashMap.put("bio", bio);
+        hashMap.put("birthday", birthday);
+        hashMap.put("telephone", telephone);
+        hashMap.put("faculty", faculty);
+        hashMap.put("department", department);
+        hashMap.put("institution", institution);
+        hashMap.put("relationship status", relationship_status);
+
+        UserRef.updateChildren(hashMap);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.ng.campusbuddy.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.ng.campusbuddy.Adapter.PostAdapter;
 import com.ng.campusbuddy.Adapter.StoryAdapter;
+import com.ng.campusbuddy.Message.MessageActivity;
 import com.ng.campusbuddy.Model.Post;
 import com.ng.campusbuddy.Model.Story;
 import com.ng.campusbuddy.R;
@@ -38,10 +41,14 @@ public class HomeFragment extends Fragment {
 
     ProgressBar progress_circular;
 
+    private ImageView Message;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        Message = view.findViewById(R.id.message_btn);
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -66,7 +73,21 @@ public class HomeFragment extends Fragment {
 
         checkFollowing();
 
+        MessageInit();
+
         return view;
+    }
+
+    private void MessageInit() {
+
+        Message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent message = new Intent(getActivity(), MessageActivity.class);
+                startActivity(message);
+            }
+        });
     }
 
     private void checkFollowing(){
